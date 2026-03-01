@@ -26,10 +26,10 @@ export function CinematicHero() {
         </p>
         <h1 className="max-w-4xl text-5xl font-black leading-[0.95] md:text-8xl">
           Napoli in tre giorni.
-          <span className="block text-fuchsia-300">Io + te + panorama + pizza.</span>
+          <span className="block text-fuchsia-300">Io + te + coccoline + pizza.</span>
         </h1>
         <p className="mt-8 max-w-2xl text-lg text-slate-200 md:text-xl">
-          Uno showcase narrativo rilassato, autentico e pieno di effetti scroll: dalla città antica al lungomare, fino al gran finale con sfogliatella pre-volo.
+          Tre giorni pensati bene, senza corse: centro storico, mare, buon cibo e un finale dolce prima del volo.
         </p>
       </motion.div>
     </section>

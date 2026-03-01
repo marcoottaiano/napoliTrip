@@ -5,7 +5,7 @@ export function EmotionalMap() {
   return (
     <section className="py-20">
       <SectionHeading
-        eyebrow="Mappa emozionale"
+        eyebrow="Il nostro mood"
         title="Come ci sentiremo (spoiler: molto bene)"
         subtitle="Un modo simpatico per visualizzare il mood del viaggio: romanticismo alto, food altissimo, stress quasi inesistente."
       />

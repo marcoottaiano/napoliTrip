@@ -1,10 +1,9 @@
 export type Stop = {
   name: string;
   note: string;
-  noteFast?: string;
   price: string;
   image: string;
-  mapsQuery: string;
+  details?: string[];
 };
 
 export type DayPlan = {
@@ -14,158 +13,296 @@ export type DayPlan = {
   stops: Stop[];
 };
 
+export type FoodHighlight = {
+  name: string;
+  type: string;
+  tip: string;
+  price: string;
+};
+
+export type TransportItem = {
+  name: string;
+  detail: string;
+  price: string;
+};
+
+export type CostItem = {
+  label: string;
+  amount: string;
+};
+
 export const dayPlans: DayPlan[] = [
   {
-    day: "Giorno 1 · 16 Maggio",
-    title: "Centro storico + sotterranea + tramonto sul mare",
-    mood: "Autentico, iconico, senza fretta.",
+    day: "Giorno 1 - 16 Maggio",
+    title: "Centro storico, sotterranea e tramonto sul mare",
+    mood: "Giornata piena ma fattibile tutta a piedi nella prima parte.",
     stops: [
       {
-        name: "Spaccanapoli & Via dei Tribunali",
-        note: "Passeggiata tra vicoli, balconi, street life e pizzette a portafoglio.",
-        noteFast: "Passeggiata smart tra i punti più iconici del centro storico.",
+        name: "Spaccanapoli",
+        note: "La strada simbolo del centro antico: vicoli, balconi e atmosfera napoletana vera.",
         price: "Gratis",
-        mapsQuery: "Spaccanapoli Napoli",
-        image:
-          "https://images.unsplash.com/photo-1656223441986-3074e5fa1313?auto=format&fit=crop&w=1400&q=80",
+        image: "https://static.fernwayer.com/bYeD.large.jpg",
+        details: ["Perfetta per iniziare la mattina", "Tappa fotografica continua"],
       },
       {
-        name: "Cappella Sansevero + Napoli Sotterranea",
-        note: "Cristo Velato e tunnel greco-romani: wow artistico + wow storico.",
-        noteFast: "Solo slot principali prenotati per evitare tempi morti.",
-        price: "52 € in due",
-        mapsQuery: "Cappella Sansevero Napoli",
-        image:
-          "https://images.unsplash.com/photo-1645824749118-e39bc8f8f85f?auto=format&fit=crop&w=1400&q=80",
+        name: "Via dei Tribunali",
+        note: "Il cuore storico tra palazzi antichi e pizzerie iconiche.",
+        price: "Gratis",
+        image: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Napoli_-_Via_dei_Tribunali.jpg",
+        details: ["Da fare subito dopo Spaccanapoli", "Zona molto viva tutto il giorno"],
       },
       {
-        name: "Lungomare, Castel dell'Ovo, Monte Echia",
-        note: "Golden hour con Vesuvio sullo sfondo e graffa finale da Chalet Ciro.",
-        noteFast: "Passeggiata al tramonto + 1 belvedere + dolce veloce.",
-        price: "Quasi tutto gratis",
-        mapsQuery: "Castel dell'Ovo Napoli",
-        image:
-          "https://images.unsplash.com/photo-1589209480226-4208f8f4f8f6?auto=format&fit=crop&w=1400&q=80",
+        name: "Madonna con la Pistola (Banksy)",
+        note: "L'unico Banksy in Italia: passaggio rapido ma super iconico.",
+        price: "Gratis",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/a0/65/b7/primo-piano.jpg?w=900&h=-1&s=1",
+        details: ["Bastano 5 minuti", "Meglio foto veloce e si riparte"],
+      },
+      {
+        name: "San Gregorio Armeno",
+        note: "La via dei presepi artigianali, piena di botteghe storiche.",
+        price: "Gratis",
+        image: "https://www.latitudinex.com/wp-content/uploads/2021/11/San-Gregorio-Armeno-statuine.jpg",
+        details: ["Molto caratteristica", "Ideale per souvenir particolari"],
+      },
+      {
+        name: "Duomo di Napoli",
+        note: "Cattedrale scenografica con Cappella del Tesoro molto bella.",
+        price: "Gratis",
+        image: "https://muddnapoli.it/wp-content/uploads/2025/09/hero-duomo-mudd-napoli.jpg",
+        details: ["Ingresso gratuito", "Merita una sosta tranquilla"],
+      },
+      {
+        name: "Cappella Sansevero",
+        note: "Cristo Velato: una delle opere piu impressionanti d'Italia.",
+        price: "EUR 16 in due",
+        image: "https://back.museosansevero.it/uploads/statua-cristo-velato-napoli-1.jpg",
+        details: ["EUR 8 a persona", "Prenotazione dal 17 marzo 2026", "Conviene bloccare lo slot con anticipo"],
+      },
+      {
+        name: "Napoli Sotterranea",
+        note: "Tunnel greco-romani e rifugi bellici: tappa molto suggestiva.",
+        price: "EUR 36 in due",
+        image: "https://enjoy.vivi.city/images/enjoyvivicity/napoli-sotterranea/napoli-sotterranea-top.jpg",
+        details: ["EUR 18 a persona", "Durata circa 1h30", "Meglio prenotare online"],
+      },
+      {
+        name: "Lungomare Caracciolo",
+        note: "Passeggiata vista Vesuvio per rallentare il ritmo nel pomeriggio.",
+        price: "Gratis",
+        image: "https://www.napoliving.it/wp-content/uploads/2022/07/Lungomare-Caracciolo-Napoli.jpg",
+        details: ["Perfetto verso golden hour", "Tratto molto romantico"],
+      },
+      {
+        name: "Castel dell'Ovo",
+        note: "Il castello piu antico della citta, sul mare.",
+        price: "Gratis",
+        image: "https://www.metroitalia.info/img/place/castello-dell-ovo.webp",
+        details: ["Verificare orari di apertura", "Panorama molto bello"],
+      },
+      {
+        name: "Fontana del Gigante + Monte Echia",
+        note: "Fontana barocca e belvedere panoramico con ascensore.",
+        price: "Gratis",
+        image: "https://i0.wp.com/www.eroidelgusto.it/wp-content/uploads/2023/03/Fontana-del-Gigante.jpg",
+        details: ["Ascensore Monte Echia gratuito", "Ottima chiusura prima di cena"],
       },
     ],
   },
   {
-    day: "Giorno 2 · 17 Maggio",
-    title: "Chiostri colorati + Quartieri Spagnoli + panorama alto",
-    mood: "Vibrazioni artistiche e panorami da cartolina.",
+    day: "Giorno 2 - 17 Maggio",
+    title: "Chiostri, quartieri e panorama dall'alto",
+    mood: "Mix perfetto tra arte, atmosfera locale e viste panoramiche.",
     stops: [
       {
-        name: "Santa Chiara + Gesù Nuovo",
-        note: "Maioliche, luce e barocco spettacolare in pieno centro.",
-        noteFast: "Focus su Chiostro + vista esterna Gesù Nuovo.",
-        price: "~14 € in due",
-        mapsQuery: "Complesso Monumentale di Santa Chiara",
-        image:
-          "https://images.unsplash.com/photo-1710840895642-a2af9c8eb5e3?auto=format&fit=crop&w=1400&q=80",
+        name: "Complesso Monumentale di Santa Chiara",
+        note: "Chiostro maiolicato coloratissimo, una delle tappe piu belle.",
+        price: "EUR 14 in due",
+        image: "https://www.arte.it/foto/600x450/5f/51739-shutterstock_440184097.jpg",
+        details: ["Circa EUR 7 a persona", "Meglio andare non troppo tardi"],
       },
       {
-        name: "Murales Maradona + Galleria Umberto + Toledo",
-        note: "Napoli pop, iconica e scenografica in poche tappe ravvicinate.",
-        noteFast: "Tour fotografico rapido delle 3 tappe simbolo.",
+        name: "Chiesa del Gesu Nuovo",
+        note: "Barocco spettacolare a due passi da Santa Chiara.",
         price: "Gratis",
-        mapsQuery: "Murales Maradona Napoli",
-        image:
-          "https://images.unsplash.com/photo-1590075865003-e48b22f3136c?auto=format&fit=crop&w=1400&q=80",
+        image: "https://www.palazzidinapoli.it/wp-content/uploads/2023/11/IMG_9192.jpg",
+        details: ["Interno molto scenografico", "Sosta breve ma consigliata"],
+      },
+      {
+        name: "Murales di Maradona",
+        note: "Tappa simbolo della citta, sempre piena di energia.",
+        price: "Gratis",
+        image: "https://www.artribune.com/wp-content/uploads/2023/11/murale-maradona-napoli-bosoletti.jpg",
+        details: ["Perfetta per foto ricordo", "In zona Quartieri Spagnoli"],
+      },
+      {
+        name: "Galleria Umberto I",
+        note: "Cupola liberty elegante e luminosa.",
+        price: "Gratis",
+        image: "https://www.espressonapoletano.it/wp-content/uploads/2019/03/14836766353_9390a060b6_b.jpg",
+        details: ["Tappa rapida", "Vicino a Toledo e San Carlo"],
+      },
+      {
+        name: "Stazione Toledo",
+        note: "La metro artistica piu famosa di Napoli.",
+        price: "Gratis con titolo viaggio",
+        image: "https://www.napolidavivere.it/wp-content/uploads/bfi_thumb/stazione-toledo-4-6xmldb1x9ld5jk2mr5vv42g595gja1xclannffc5u8g.jpg",
+        details: ["Vale la pena anche solo per le foto", "Comoda per gli spostamenti"],
       },
       {
         name: "Castel Sant'Elmo",
-        note: "Arrivo in funicolare e vista totale sulla città al tramonto.",
-        noteFast: "Vista panoramica con salita ottimizzata in funicolare.",
-        price: "~13 € in due con funicolare",
-        mapsQuery: "Castel Sant'Elmo Napoli",
-        image:
-          "https://images.unsplash.com/photo-1515542706656-8e6ef17a1521?auto=format&fit=crop&w=1400&q=80",
+        note: "Vista spettacolare dall'alto su tutta Napoli.",
+        price: "EUR 10 in due",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4k9opkzDT5pf5SRTojY_ADFjKTjBZTUacPA&s",
+        details: ["Circa EUR 5 a persona", "Funicolare circa EUR 1.50"],
       },
     ],
   },
   {
-    day: "Giorno 3 · 18 Maggio",
-    title: "Zona monumentale + sfogliatella + aeroporto",
-    mood: "Finale elegante e dolce, zero stress.",
+    day: "Giorno 3 - 18 Maggio",
+    title: "Zona monumentale e partenza",
+    mood: "Ultime tappe eleganti, ritmi leggeri e chiusura perfetta.",
     stops: [
       {
-        name: "Maschio Angioino + Plebiscito + San Carlo",
-        note: "Un concentrato di Napoli monumentale prima del rientro.",
-        noteFast: "Walk monumentale con fermate foto nei punti chiave.",
-        price: "Gratis (interni opzionali)",
-        mapsQuery: "Maschio Angioino Napoli",
-        image:
-          "https://images.unsplash.com/photo-1629398689632-6c323e2ef017?auto=format&fit=crop&w=1400&q=80",
+        name: "Maschio Angioino",
+        note: "Castello medievale imponente nel cuore della zona monumentale.",
+        price: "Esterno gratis",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGbRmI6pVRTyaEWyO7BQTK-ODHxy50jHr3RA&s",
+        details: ["Interno circa EUR 6 a persona", "Valutare in base ai tempi"],
       },
       {
-        name: "Palazzo Reale (opzionale)",
-        note: "Se c'è tempo: interno ricco, elegante e scenico.",
-        noteFast: "Solo esterno se i tempi sono stretti.",
-        price: "~20 € in due",
-        mapsQuery: "Palazzo Reale Napoli",
-        image:
-          "https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=1400&q=80",
+        name: "Piazza del Plebiscito",
+        note: "La piazza monumentale per eccellenza a Napoli.",
+        price: "Gratis",
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/74/P.Plebiscito_Napoli.jpg",
+        details: ["Ampia e scenografica", "Ottima per ultime foto"],
       },
       {
-        name: "Sfogliatelle Attanasio + Alibus",
-        note: "Ultimo morso iconico e poi navetta per il volo delle 18:20.",
-        noteFast: "Dolce take-away e partenza da Municipio entro le 16:00.",
-        price: "~11 € in due",
-        mapsQuery: "Sfogliatelle Attanasio Napoli",
-        image:
-          "https://images.unsplash.com/photo-1579208570378-8c970854bc23?auto=format&fit=crop&w=1400&q=80",
+        name: "Basilica di San Francesco di Paola",
+        note: "Chiesa neoclassica elegante davanti alla piazza.",
+        price: "Gratis",
+        image: "https://www.santuariopaola.it/nuovo/images/articoli/facciata.jpg",
+        details: ["Visita rapida", "Interni ordinati e luminosi"],
+      },
+      {
+        name: "Palazzo Reale di Napoli",
+        note: "Facciata iconica; interni solo se resta tempo.",
+        price: "Esterno gratis0",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREi-yaWOjVAFLl3r_hyHUtbzZKQ761WgFfqg&s",
+        details: ["Interno circa EUR 10 a persona", "Opzionale in base all'orario"],
+      },
+      {
+        name: "Teatro di San Carlo",
+        note: "Esterno elegante a due passi da Plebiscito.",
+        price: "Gratis",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV3knHjQyOEcpmw2i4NzH9Hpd-RdBLQpG-mw&s",
+        details: ["Tappa breve", "Contesto molto bello la sera"],
+      },
+      {
+        name: "Sfogliatelle Attanasio",
+        note: "Sfogliatella calda prima di prendere l'Alibus.",
+        price: "EUR 2-3",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEUe9Ce2y52uMxGDelutM1hxhLxx4Dv8zMtA&s",
+        details: ["Ultimo snack iconico", "Comoda prima della partenza"],
       },
     ],
   },
 ];
 
 export const emotionalMap = [
-  { label: "Romanticismo", value: 95, icon: "💜" },
-  { label: "Avventura", value: 88, icon: "🕳️" },
-  { label: "Food Happiness", value: 99, icon: "🍕" },
-  { label: "Panorami WOW", value: 92, icon: "🌅" },
-  { label: "Relax", value: 81, icon: "🧘" },
+  { label: "Romanticismo", value: 95, icon: "❤️" },
+  { label: "Avventura", value: 88, icon: "🧭" },
+  { label: "Food happiness", value: 99, icon: "🍕" },
+  { label: "Panorami", value: 92, icon: "🌅" },
+  { label: "Relax", value: 81, icon: "🌿" },
+  { label: "Pisolini", value: 86, icon: "😴" },
+  { label: "Coccoline", value: 100, icon: "🤗" },
 ];
 
-export const foodHighlights = [
+export const foodHighlights: FoodHighlight[] = [
   {
     name: "Pizzeria Di Matteo",
     type: "Street food mattina",
-    tip: "Pizza a portafoglio: con o senza mollica? Test di coppia obbligatorio.",
-    price: "2–3 €",
+    tip: "Pizza a portafoglio: senza mollica consigliato.",
+    price: "EUR 2-3",
   },
   {
     name: "Antica Pizzeria Port'Alba",
-    type: "Cena iconica",
-    tip: "Pizzeria storica del 1738. Mood: classico + romantico.",
-    price: "10–15 €",
+    type: "Cena giorno 1",
+    tip: "Pizzeria storica dal 1738, atmosfera classica.",
+    price: "EUR 10-15 a persona",
   },
   {
-    name: "Da Nennella / Panarié",
-    type: "Pranzo giorno 2",
-    tip: "Versione folklore vs versione più intima. Scegliete il mood del giorno.",
-    price: "15–30 €",
+    name: "Trattoria Da Nennella",
+    type: "Pranzo giorno 2 - opzione A",
+    tip: "Folklore napoletano, ambiente vivace.",
+    price: "EUR 15-25",
   },
   {
-    name: "Signora Bettola / La Lazzara",
-    type: "Cena giorno 2",
-    tip: "Tradizione curata o porto romantico: entrambe promosse.",
-    price: "25–35 €",
+    name: "Trattoria Panarie",
+    type: "Pranzo giorno 2 - opzione B",
+    tip: "Piu tranquilla e curata.",
+    price: "EUR 20-30",
+  },
+  {
+    name: "Signora Bettola",
+    type: "Cena giorno 2 - opzione A",
+    tip: "Tradizione curata, piatti solidi.",
+    price: "EUR 25-35",
+  },
+  {
+    name: "Trattoria La Lazzara",
+    type: "Cena giorno 2 - opzione B",
+    tip: "Zona porto, atmosfera piu romantica.",
+    price: "EUR 25-35",
   },
   {
     name: "Chalet Ciro + Attanasio",
     type: "Dolci bonus",
-    tip: "Graffa calda sul lungomare + sfogliatella prima dell'aeroporto.",
-    price: "2–3 €",
+    tip: "Graffa calda sul lungomare + sfogliatella finale.",
+    price: "EUR 2-3",
   },
 ];
 
-export const mapPins = [
-  "Spaccanapoli",
-  "Cappella Sansevero",
-  "Napoli Sotterranea",
-  "Lungomare Caracciolo",
-  "Castel Sant'Elmo",
-  "Piazza del Plebiscito",
-  "Sfogliatelle Attanasio",
+export const optionalFoodSpots = [
+  "Con Mollica o Senza",
+  "Pizzeria La Masardona",
+  "Poppella",
+  "Passione di Sofi",
+  "Puok",
+  "Cisbu",
 ];
+
+export const transportInfo: TransportItem[] = [
+  {
+    name: "Biglietto singolo",
+    detail: "Utile per tratte occasionali",
+    price: "EUR 1.50",
+  },
+  {
+    name: "Giornaliero",
+    detail: "Consigliato soprattutto il giorno 2",
+    price: "EUR 4.50",
+  },
+  {
+    name: "Alibus aeroporto",
+    detail: "Durata 20-30 min. Per volo 18:20, partenza da Municipio entro 16:00",
+    price: "EUR 5 a persona",
+  },
+  {
+    name: "Funicolare",
+    detail: "Per Castel Sant'Elmo (se non inclusa nel giornaliero)",
+    price: "EUR 1.50 circa",
+  },
+];
+
+export const activityCosts: CostItem[] = [
+  { label: "Cappella Sansevero", amount: "EUR 16" },
+  { label: "Napoli Sotterranea", amount: "EUR 36" },
+  { label: "Santa Chiara", amount: "EUR 14" },
+  { label: "Castel Sant'Elmo", amount: "EUR 10" },
+  { label: "Maschio Angioino interno (opz.)", amount: "EUR 12" },
+  { label: "Palazzo Reale interno (opz.)", amount: "EUR 20" },
+];
+
+export const baseCostForTwo = "Base certa: EUR 76 in due";

@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { dayPlans } from "@/data/trip";
 import { SectionHeading } from "@/components/ui/section-heading";
-
-type Mode = "rilassato" | "rapido";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 26 },
@@ -17,9 +16,6 @@ const cardVariants = {
 };
 
 export function DayTimeline() {
-  const [mode, setMode] = useState<Mode>("rilassato");
-  const isFast = mode === "rapido";
-
   const plans = useMemo(() => dayPlans, []);
 
   return (
@@ -27,25 +23,8 @@ export function DayTimeline() {
       <SectionHeading
         eyebrow="Timeline"
         title="Roadmap completa del viaggio"
-        subtitle="Zero corse inutili: attiva la modalità viaggio e guarda come cambia il ritmo della giornata."
+        subtitle="Programma dettagliato, chiaro e senza giri strani."
       />
-
-      <div className="mx-auto mb-8 flex max-w-6xl justify-start px-6 md:px-10">
-        <div className="inline-flex rounded-full border border-white/10 bg-slate-900/70 p-1">
-          {(["rilassato", "rapido"] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setMode(option)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                mode === option ? "bg-fuchsia-400 text-slate-950" : "text-slate-200 hover:bg-white/10"
-              }`}
-            >
-              {option === "rilassato" ? "🧘 Modalità rilassata" : "⚡ Modalità rapida"}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <div className="mx-auto grid max-w-6xl gap-8 px-6 md:px-10">
         {plans.map((day, dayIndex) => (
@@ -78,7 +57,14 @@ export function DayTimeline() {
                         <h4 className="font-semibold">{stop.name}</h4>
                         <span className="rounded-full bg-cyan-300/20 px-3 py-1 text-xs text-cyan-200">{stop.price}</span>
                       </div>
-                      <p className="mt-2 text-sm text-slate-300">{isFast ? stop.noteFast ?? stop.note : stop.note}</p>
+                      <p className="mt-2 text-sm text-slate-300">{stop.note}</p>
+                      {stop.details && stop.details.length > 0 ? (
+                        <ul className="mt-3 space-y-1 text-xs text-slate-200/90">
+                          {stop.details.map((detail) => (
+                            <li key={detail}>- {detail}</li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </motion.div>
                   ))}
                 </div>
@@ -92,7 +78,14 @@ export function DayTimeline() {
                     whileHover={{ scale: 1.02, rotate: -0.5 }}
                     transition={{ type: "spring", stiffness: 180, damping: 18 }}
                   >
-                    <img src={stop.image} alt={stop.name} className="h-full w-full object-cover" loading="lazy" />
+                    <Image
+                      src={stop.image}
+                      alt={stop.name}
+                      fill
+                      unoptimized
+                      sizes="(min-width: 768px) 40vw, 100vw"
+                      className="h-full w-full object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
                     <p className="absolute bottom-2 left-2 right-2 text-sm font-semibold text-white">{stop.name}</p>
                   </motion.div>
